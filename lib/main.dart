@@ -1,6 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbasics/choose_location.dart';
+import 'quote.dart';
 
-void main() => runApp(MaterialApp(home: Home()));
+void main() => runApp(MaterialApp
+  (
+    debugShowCheckedModeBanner: false,
+    home: QuoteList()));
+
+
+class QuoteList extends StatefulWidget{
+
+  @override
+  _QuoteListState createState() => _QuoteListState();
+}
+
+class _QuoteListState extends State<QuoteList>{
+
+  List<Quote> quotes = [
+    Quote(author: 'John Lennon', text: 'The greatest glory in living lies not in never falling, but in rising every time we fall. '),
+    Quote(author: 'Oprah Winfrey', text: 'The way to get started is to quit talking and begin doing'),
+    Quote(author: 'Oprah Winfrey', text: 'If life were predictable it would cease to be life, and be without flavor'),
+    Quote(author: 'Oprah Winfrey', text: 'Life is what happens when youre busy making other plans'),
+    Quote(author: 'Oprah Winfrey', text: 'If you set your goals ridiculously high and it\'s a failure, you will fail above everyone else\'s success.'),
+  ];
+
+  Widget quoteTemplate(quote){
+   return Card(
+     margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+     child: Padding(
+       padding: const EdgeInsets.all(12.0),
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.stretch,
+         children: [
+           Text(
+             quote.text,
+             style: TextStyle(
+               fontSize: 18.0,
+               color: Colors.grey[600],
+             ),
+           ),
+           SizedBox(height: 6.0,),
+           Text(
+             quote.author,
+             style: TextStyle(
+               fontSize: 18.0,
+               color: Colors.grey[800],
+             ),
+           )
+         ],
+       ),
+     ),
+   );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: Text('aweosme quotes'),
+        centerTitle: true,
+        backgroundColor: Colors.redAccent,
+      ),
+      body: Column(
+        // children: quotes.map((quote) => Text('${quote.text} - ${quote.author}')).toList(),
+        children: quotes.map((quote) => quoteTemplate(quote)).toList(),
+      ),
+    );
+  }
+}
+
 
 class Home extends StatelessWidget {
   @override
@@ -11,8 +81,8 @@ class Home extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('hello'),
           Text('ryan'),
@@ -38,8 +108,6 @@ class Home extends StatelessWidget {
             padding: EdgeInsets.all(40.0),
             child: Text('inside container'),
           ),
-
-
         ],
       ),
       drawer: Drawer(

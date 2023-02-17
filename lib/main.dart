@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbasics/choose_location.dart';
 import 'quote.dart';
+import 'QuoteCard.dart';
 
 void main() => runApp(MaterialApp
   (
     debugShowCheckedModeBanner: false,
     home: QuoteList()));
+
 
 
 class QuoteList extends StatefulWidget{
@@ -21,37 +23,9 @@ class _QuoteListState extends State<QuoteList>{
     Quote(author: 'Oprah Winfrey', text: 'The way to get started is to quit talking and begin doing'),
     Quote(author: 'Oprah Winfrey', text: 'If life were predictable it would cease to be life, and be without flavor'),
     Quote(author: 'Oprah Winfrey', text: 'Life is what happens when youre busy making other plans'),
-    Quote(author: 'Oprah Winfrey', text: 'If you set your goals ridiculously high and it\'s a failure, you will fail above everyone else\'s success.'),
+    //Quote(author: 'Oprah Winfrey', text: 'If you set your goals ridiculously high and it\'s a failure, you will fail above everyone else\'s success.'),
   ];
 
-  Widget quoteTemplate(quote){
-   return Card(
-     margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-     child: Padding(
-       padding: const EdgeInsets.all(12.0),
-       child: Column(
-         crossAxisAlignment: CrossAxisAlignment.stretch,
-         children: [
-           Text(
-             quote.text,
-             style: TextStyle(
-               fontSize: 18.0,
-               color: Colors.grey[600],
-             ),
-           ),
-           SizedBox(height: 6.0,),
-           Text(
-             quote.author,
-             style: TextStyle(
-               fontSize: 18.0,
-               color: Colors.grey[800],
-             ),
-           )
-         ],
-       ),
-     ),
-   );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +39,14 @@ class _QuoteListState extends State<QuoteList>{
       ),
       body: Column(
         // children: quotes.map((quote) => Text('${quote.text} - ${quote.author}')).toList(),
-        children: quotes.map((quote) => quoteTemplate(quote)).toList(),
+        children: quotes.map((quote) => QuoteCard(
+            quote: quote,
+            delete : (){
+              setState(() {
+                quotes.remove(quote);
+              });
+            }
+        )).toList(),
       ),
     );
   }
